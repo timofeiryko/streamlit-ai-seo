@@ -11,6 +11,7 @@ import io
 from langchain.chains import LLMChain
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
+import re
 
 # ──────────────── logging ────────────────────────────────────────────── #
 _level = logging.DEBUG if os.getenv("DEBUG") else logging.INFO
@@ -165,7 +166,8 @@ Requirements
 • Mention GetTransport benefits organically, avoid hard sell (only if relevant)
 • Use markdown formatting (headings, lists, links, etc.)
 • Include a 155-character meta description, focus keyphrase, 3 slug ideas (as a markwodn list with 3 points)
-• Include category tag. You should define it, based on the knowledge base.
+• Include category tag. You should define it, based on the knowledge base, strictly use only the tags mentioned in the knowledge base.
+• Meta description, focus keyphrase, slug ideas, categiory tag should be in the beginning of the article, before the main text, strictly with first level header "# Meta information". Than the article itself.
 IMPORTANT: your article should be original, not a copy of existing articles.
 
 TARGET KEYWORDS
@@ -253,18 +255,35 @@ st.title("🚀 AI SEO Content Generator")
 
 def md_output(label: str, state_key: str, file_stub: str, height: int = 300) -> None:
     """
-    Renders markdown AND exposes a “Copy markdown” button.
-    download_button is the simplest cross-browser way to let users grab
-    the whole text in one click without brittle JS clipboard hacks.
+    Splits the markdown into two parts:
+    1. Meta information (the first "# " header and its content until the second header)
+    2. Article (from the second "# " header onward)
+    
+    Renders each section separately and adds a download button for the full markdown.
     """
     md_txt = st.session_state.get(state_key, "")
     if not md_txt:
         return
 
-    st.markdown(f"#### {label}")
-    st.markdown(md_txt, unsafe_allow_html=True)          # rendered view
-    st.download_button(                                   # raw markdown
-        "📋 Copy markdown",
+    # Find all headers that start with "# " (assuming they are at the beginning of a line)
+    headers = list(re.finditer(r"^# .+", md_txt, re.MULTILINE))
+    if len(headers) >= 2:
+        meta_info = md_txt[headers[0].start():headers[1].start()].strip()
+        article = md_txt[headers[1].start():].strip()
+    else:
+        # Fallback: if not splitable, treat all as meta information
+        meta_info = md_txt
+        article = ""
+
+    
+    st.markdown(meta_info, unsafe_allow_html=True)
+
+    if article:
+        st.markdown(f"#### {label}")
+        st.code(article, language="markdown")
+
+    st.download_button(
+        "📋 Download markdown",
         data=io.StringIO(md_txt).getvalue(),
         file_name=f"{file_stub}.md",
         mime="text/markdown",
