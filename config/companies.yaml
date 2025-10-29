@@ -1,0 +1,85 @@
+default_company: coinrate
+
+companies:
+  gettransport:
+    display_name: "GetTransport"
+    product_name: "GetTransport"
+    meta_brief: |
+      Product:
+      GetTransport — an online platform for booking and managing cargo
+      transportation by land, sea, and air. The marketplace connects shippers and
+      carriers via smart tendering, transparent pricing and digital paperwork.
+
+      Audience segmentation (pains & goals)
+
+      1. The SMB Owner / Operations Manager – wants cheaper rates & automation.
+      2. The Carrier / Independent Trucker – wants to avoid dead-head miles, fast pay.
+      3. The Corporate Logistics Manager – needs visibility, analytics, scalability.
+      4. The Individual Shipper (B2C) – wants simplicity, fair price, peace of mind.
+
+      Typical segment keywords:
+      SMB: “affordable freight for small business”, “shipping rates e-commerce”
+      Carrier: “find loads for my truck”, “load board Europe”
+      Corporate: “digital freight management”, “multimodal shipping TMS”
+      Individual: “ship a car across country cost”, “move furniture to Spain”
+    article_instructions: "Mention {product_name} benefits organically and only where they add value; keep the tone consultative rather than salesy."
+    knowledge_base:
+      Transportation:
+        - "Marketplace matches shippers with vetted carriers across Europe, North America, and LATAM."
+        - "Supports full truckload, LTL, ocean, and air freight with digital paperwork workflows."
+      Trends in logistics:
+        - "Customers expect predictive pricing, automated tendering, and real-time load visibility."
+        - "Green logistics commitments include carbon tracking dashboards and mode optimisation."
+      Carriers:
+        - "Carrier network blends independent truckers with enterprise forwarders; fast-pay program available."
+        - "Average carrier onboarding time is under 48 hours with compliance guarantees."
+      USA:
+        - "Key trade lanes include LA ↔ Dallas, Chicago ↔ Atlanta, and Newark ↔ Houston."
+        - "Handles cross-border compliance for US-Mexico shipments with customs brokerage partners."
+      Mexico:
+        - "Focus verticals: automotive, electronics, and perishables along the Bajío corridor."
+        - "Local operations team provides bilingual support and bonded warehouse integrations."
+
+  coinrate:
+    display_name: "Coinrate"
+    product_name: "Coinrate"
+    meta_brief: |
+      Продукт:
+      Coinrate — поставщик решений для создания рынка криптовалют и ликвидности,
+      который помогает блокчейн-проектам, биржам и инвесторам повышать ликвидность,
+      управлять рисками и максимизировать прибыль с помощью передовых торговых
+      стратегий и структурированных инвестиционных продуктов.
+
+      Целевая аудитория:
+      • Начинающие трейдеры, студенты, пенсионеры, а также азартные трейдеры с большим количеством свободного времени.
+      • Пользователи, интересующиеся активами, криптой, финансами, вопросами «что покупать / продавать», идеями пассивного дохода.
+      • Сообщества, ищущие понятные объяснения работы маркетмейкинга и доступные инструменты для участия.
+
+      Контент-план по типам материалов:
+      • 1 экспертная статья от штатного эксперта Coinrate.
+      • 3 сгенерированные экспертные статьи.
+      • 2 гида для новичков (how-to).
+      • 1 подборка формата «топ / рейтинг / лучшие идеи».
+      • 7 ежедневных обзоров новостей и рыночных сигналов.
+
+      Ключевые термины и поисковые запросы:
+      • «crypto market making», «как стать маркетмейкером», «ликвидность криптовалют».
+      • «торговые стратегии для новичков», «пассивный доход на крипте», «структурированные продукты».
+      • «что купить сегодня в крипте», «топ монет с потенциалом», «новости крипторынка».
+    article_instructions: "Подчеркивай, что {product_name} делает маркетмейкинг и управление ликвидностью понятными и выгодными для массового розничного трейдера; удерживай тон дружелюбным, объясняющим и вдохновляющим."
+    knowledge_base:
+      Инсайты:
+        - "Рассказываем про ключевые движения ликвидности, притоки капитала и необычные сигналы по топ-активам."
+        - "Объясняем, какие стратегии используют маркетмейкеры и как они зарабатывают на спреде и волатильности."
+      Аналитика:
+        - "Разбираем графики, метрики и отчитываемся о динамике глубины стакана, волатильности и объемов торгов."
+        - "Показываем, как новичку читать отчеты по трендам, сезонности и корреляциям между криптоактивами."
+      Гайды:
+        - "Публикуем пошаговые инструкции: от настройки кошелька до выбора первой стратегии или биржи."
+        - "Переводим сложные термины («impermanent loss», «funding rate») на простой язык и приводим примеры."
+      Новости:
+        - "Каждый день собираем главные новости крипторынка, регуляторики и движений крупных игроков."
+        - "Добавляем краткие выводы: чем событие может быть полезно или опасно для начинающих трейдеров."
+      Подборки:
+        - "Делаем рейтинги монет, бирж, инструментов и полезных ресурсов, чтобы сэкономить время на выборе."
+        - "Регулярно публикуем подборки формата «топ идей», «самые устойчивые активы» или «где искать пассивный доход»."
