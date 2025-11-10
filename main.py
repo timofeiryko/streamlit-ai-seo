@@ -33,8 +33,10 @@ except ConfigError as exc:  # pragma: no cover - configuration errors are fatal
     raise RuntimeError(f"Failed to load company configuration: {exc}") from exc
 
 
-ARTICLE_FORMAT_OPTIONS = ["Инсайты", "Аналитика", "Гайды", "Подборки", "Дайджест"]
-DEFAULT_ARTICLE_FORMAT = "Аналитика"
+ARTICLE_FORMAT_OPTIONS = list(llm_service.ARTICLE_CATEGORY_TAGS)
+ARTICLE_FORMAT_AUTO = "Определить автоматически"
+ARTICLE_FORMAT_SELECT_OPTIONS = [ARTICLE_FORMAT_AUTO, *ARTICLE_FORMAT_OPTIONS]
+DEFAULT_ARTICLE_FORMAT = ARTICLE_FORMAT_AUTO
 
 
 # --------------------------------------------------------------------- #
@@ -164,11 +166,12 @@ with tab2:
 
 # 3️⃣ Topic ideas ------------------------------------------------------- #
 with tab3:
-    topic_format = st.selectbox(
+    topic_format_choice = st.selectbox(
         "Формат статьи",
-        ARTICLE_FORMAT_OPTIONS,
+        ARTICLE_FORMAT_SELECT_OPTIONS,
         key="topics_format",
     )
+    topic_format = None if topic_format_choice == ARTICLE_FORMAT_AUTO else topic_format_choice
     groups_in = st.text_area("Keyword groups (tab 2 output)", height=260)
     if st.button("Generate Topics"):
         st.session_state["topics"] = llm_service.gen_topics(
@@ -180,11 +183,12 @@ with tab3:
 with tab4:
     kw_for_article = st.text_area("Target keywords", height=120)
     topic_in = st.text_input("Chosen topic")
-    article_format = st.selectbox(
+    article_format_choice = st.selectbox(
         "Формат статьи",
-        ARTICLE_FORMAT_OPTIONS,
+        ARTICLE_FORMAT_SELECT_OPTIONS,
         key="article_format",
     )
+    article_format = None if article_format_choice == ARTICLE_FORMAT_AUTO else article_format_choice
     instr_box = st.text_area(
         "Custom instructions (optional)", height=120, key="article_custom_instructions"
     )
