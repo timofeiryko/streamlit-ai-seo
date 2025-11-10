@@ -33,6 +33,10 @@ except ConfigError as exc:  # pragma: no cover - configuration errors are fatal
     raise RuntimeError(f"Failed to load company configuration: {exc}") from exc
 
 
+ARTICLE_FORMAT_OPTIONS = ["Инсайты", "Аналитика", "Гайды", "Подборки", "Дайджест"]
+DEFAULT_ARTICLE_FORMAT = "Аналитика"
+
+
 # --------------------------------------------------------------------- #
 # Streamlit helpers                                                     #
 # --------------------------------------------------------------------- #
@@ -79,6 +83,10 @@ if "meta_brief" not in st.session_state:
     st.session_state["meta_brief"] = COMPANY_PROFILES[DEFAULT_COMPANY_KEY].meta_brief
 if "article_custom_instructions" not in st.session_state:
     st.session_state["article_custom_instructions"] = ""
+if "topics_format" not in st.session_state:
+    st.session_state["topics_format"] = DEFAULT_ARTICLE_FORMAT
+if "article_format" not in st.session_state:
+    st.session_state["article_format"] = DEFAULT_ARTICLE_FORMAT
 if "enhanced_mode" not in st.session_state:
     st.session_state["enhanced_mode"] = False
 if "daily_digest_text" not in st.session_state:
@@ -107,6 +115,8 @@ if st.session_state.get("_prev_company_key") != selected_company_key:
     st.session_state["_prev_company_key"] = selected_company_key
     st.session_state["meta_brief"] = current_profile.meta_brief
     st.session_state["article_custom_instructions"] = ""
+    st.session_state["topics_format"] = DEFAULT_ARTICLE_FORMAT
+    st.session_state["article_format"] = DEFAULT_ARTICLE_FORMAT
     st.session_state["enhanced_mode"] = False
     st.session_state["daily_digest_text"] = ""
     st.session_state["daily_digest_meta"] = {}
@@ -154,15 +164,27 @@ with tab2:
 
 # 3️⃣ Topic ideas ------------------------------------------------------- #
 with tab3:
+    topic_format = st.selectbox(
+        "Формат статьи",
+        ARTICLE_FORMAT_OPTIONS,
+        key="topics_format",
+    )
     groups_in = st.text_area("Keyword groups (tab 2 output)", height=260)
     if st.button("Generate Topics"):
-        st.session_state["topics"] = llm_service.gen_topics(groups_in, current_profile)
+        st.session_state["topics"] = llm_service.gen_topics(
+            groups_in, current_profile, topic_format
+        )
     md_output("Proposed Topics", "topics", "topics")
 
 # ✍️ Article writer ----------------------------------------------------- #
 with tab4:
     kw_for_article = st.text_area("Target keywords", height=120)
     topic_in = st.text_input("Chosen topic")
+    article_format = st.selectbox(
+        "Формат статьи",
+        ARTICLE_FORMAT_OPTIONS,
+        key="article_format",
+    )
     instr_box = st.text_area(
         "Custom instructions (optional)", height=120, key="article_custom_instructions"
     )
@@ -174,6 +196,7 @@ with tab4:
             instr_box,
             current_profile,
             enhanced_mode_flag,
+            article_format,
         )
     md_output("Generated Article", "article", "article", height=600)
 
